@@ -586,6 +586,13 @@ a { color: inherit; text-decoration: none; }
     line-height: 1.7;
 }
 
+.terms-card p a {
+    color: var(--accent);
+    font-weight: 500;
+}
+
+.terms-card p a:hover { text-decoration: underline; }
+
 .terms-back {
     text-align: center;
     font-size: 0.875rem;
