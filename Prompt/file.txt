@@ -58,7 +58,7 @@ part of the page.
 
 git commit -m "landing: redesign hero section to match mockup"
 
-Add a modal to templates/landing.html that opens when the user
+Add a modal to @templates/landing.html that opens when the user
 clicks "See how it works".
 
 Requirements:
@@ -74,3 +74,7 @@ Requirements:
 - No page libraries or dependencies – vanilla JS only, since we
   are not
   using any JS framework in this project
+
+Don't modify any other part of the page 
+
+git commit -m "landing: add youtube model on see how it works click"

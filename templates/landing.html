@@ -2,6 +2,67 @@
 
 {% block title %}Spendly — Track Every Rupee{% endblock %}
 
+{% block head %}
+<style>
+    button.hero-btn { border: 0; cursor: pointer; }
+
+    .video-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1000;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        background: rgba(15, 15, 15, 0.7);
+    }
+
+    .video-modal.is-open { display: flex; }
+
+    .video-modal-dialog {
+        position: relative;
+        width: 100%;
+        max-width: 860px;
+        background: #000;
+        border-radius: var(--radius-md);
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+    }
+
+    .video-modal-frame {
+        position: relative;
+        aspect-ratio: 16 / 9;
+        border-radius: var(--radius-md);
+        overflow: hidden;
+    }
+
+    .video-modal-frame iframe {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        border: 0;
+    }
+
+    .video-modal-close {
+        position: absolute;
+        top: -2.75rem;
+        right: 0;
+        width: 2.25rem;
+        height: 2.25rem;
+        border: 0;
+        border-radius: 50%;
+        background: var(--paper);
+        color: var(--ink);
+        font-size: 1.4rem;
+        line-height: 1;
+        cursor: pointer;
+        transition: background 0.2s;
+    }
+
+    .video-modal-close:hover { background: var(--paper-warm); }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <section class="hero">
@@ -17,7 +78,7 @@
         </p>
         <div class="hero-actions">
             <a href="{{ url_for('register') }}" class="hero-btn">Create free account</a>
-            <a href="#features" class="hero-btn">See how it works</a>
+            <button type="button" class="hero-btn" id="open-video">See how it works</button>
         </div>
     </div>
     <div class="hero-visual">
@@ -90,4 +151,60 @@
     </div>
 </section>
 
+<div class="video-modal" id="video-modal" role="dialog" aria-modal="true" aria-label="How Spendly works" aria-hidden="true">
+    <div class="video-modal-dialog">
+        <button type="button" class="video-modal-close" id="close-video" aria-label="Close video">&times;</button>
+        <!-- Placeholder video. To use your own, replace the ID at the end of data-video-src.
+             Your video: https://www.youtube-nocookie.com/embed/QScLGU903RY -->
+        <div class="video-modal-frame" id="video-frame" data-video-src="https://www.youtube-nocookie.com/embed/jNQXAC9IVRw"></div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+(function () {
+    var modal = document.getElementById('video-modal');
+    var frame = document.getElementById('video-frame');
+    var openBtn = document.getElementById('open-video');
+    var closeBtn = document.getElementById('close-video');
+
+    function openModal() {
+        // The iframe is only created on open, so nothing loads until then.
+        if (frame.dataset.videoSrc) {
+            var iframe = document.createElement('iframe');
+            iframe.src = frame.dataset.videoSrc + '?autoplay=1&rel=0';
+            iframe.title = 'How Spendly works';
+            iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
+            iframe.allowFullscreen = true;
+            frame.appendChild(iframe);
+        }
+        modal.classList.add('is-open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+        closeBtn.focus();
+    }
+
+    function closeModal() {
+        // Removing the iframe stops the video completely.
+        frame.innerHTML = '';
+        modal.classList.remove('is-open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        openBtn.focus();
+    }
+
+    openBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function (e) {
+        if (e.target === modal) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && modal.classList.contains('is-open')) closeModal();
+    });
+})();
+</script>
 {% endblock %}
