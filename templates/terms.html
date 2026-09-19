@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+
+{% block title %}Terms and Conditions — Spendly{% endblock %}
+
+{% block content %}
+
+<section class="terms-hero">
+    <div class="terms-hero-inner">
+        <div class="hero-badge">Legal</div>
+        <h1 class="terms-title">Terms and <em>Conditions</em></h1>
+        <p class="terms-updated">Last updated: September 2026</p>
+    </div>
+</section>
+
+<section class="terms-body">
+    <div class="terms-inner">
+
+        <article class="terms-card">
+            <div class="terms-num">01</div>
+            <h2 class="terms-heading">Acceptance of Terms</h2>
+            <p>
+                By creating an account or using Spendly, you agree to be bound by
+                these Terms and Conditions. If you do not agree, please do not use
+                the service.
+            </p>
+        </article>
+
+        <article class="terms-card">
+            <div class="terms-num">02</div>
+            <h2 class="terms-heading">Use of Service</h2>
+            <p>
+                Spendly is a personal expense tracking tool. You agree to use it
+                only for lawful purposes and for your own personal record keeping.
+                You are responsible for keeping your login credentials secure and
+                for all activity under your account.
+            </p>
+        </article>
+
+        <article class="terms-card">
+            <div class="terms-num">03</div>
+            <h2 class="terms-heading">User Data</h2>
+            <p>
+                You retain ownership of the expense data you enter into Spendly.
+                We store this data only to provide the service to you and do not
+                sell it to third parties. You may delete your data at any time.
+            </p>
+        </article>
+
+        <article class="terms-card">
+            <div class="terms-num">04</div>
+            <h2 class="terms-heading">Limitations of Liability</h2>
+            <p>
+                Spendly is provided "as is" without warranties of any kind. It is
+                a tracking tool and does not provide financial, tax or investment
+                advice. To the fullest extent permitted by law, we are not liable
+                for any loss or damage arising from your use of the service or
+                from inaccuracies in the data you enter.
+            </p>
+        </article>
+
+        <article class="terms-card">
+            <div class="terms-num">05</div>
+            <h2 class="terms-heading">Changes to Terms</h2>
+            <p>
+                We may update these Terms from time to time. Continued use of
+                Spendly after changes are posted means you accept the revised
+                Terms.
+            </p>
+        </article>
+
+        <p class="terms-back"><a href="{{ url_for('landing') }}">← Back to home</a></p>
+    </div>
+</section>
+
+{% endblock %}
